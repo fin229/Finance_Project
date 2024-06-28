@@ -7,7 +7,7 @@ interface SearchResponse{
 }
 export const searchCompanies=async (query:string)=>{
     try {
-        const api_key=process.env.REACT_APP_API_KEY
+        const api_key=process.env.API_KEY
         const data=await axios.get<SearchResponse>(
           `https://financialmodelingprep.com/api/v3/search?query=${query}&limit=10&exchange=NASDAQ&apikey=${api_key}`
         )
