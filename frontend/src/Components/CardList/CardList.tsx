@@ -1,15 +1,26 @@
-import React, { FC } from "react";
+import React, { FC, SyntheticEvent } from "react";
 import "./CardList.css"
 import Card from "../Card/Card";
-interface Props {};
+import { CompanySearch } from "../../company";
+import {v4 as uuidv4} from "uuid"
 
-const CardList:FC<Props> = (props:Props) => {
+interface Props {
+  searchResults:CompanySearch[];
+  onPortfolioCreate:(e:SyntheticEvent)=>void;
+};
+
+const CardList:FC<Props> = ({searchResults,onPortfolioCreate}:Props) => {
   return (
-    <div>
-        <Card companyName="Apple" ticker="AAPL" price={100}/>
-        <Card companyName="Microsoft" ticker="MSFT" price={200}/>
-        <Card companyName="Tesla" ticker="TSLA" price={300}/>
-    </div>
+    <>
+        {searchResults.length>0?(
+          searchResults.map((result)=>{
+            return <Card id={result.symbol} key={uuidv4()} searchResult={result} onPortfolioCreate={onPortfolioCreate}/>
+          })
+        ):(
+          <h1>No results</h1>
+        )
+      }
+    </>
   );
 };
 

@@ -1,21 +1,24 @@
-import React, { FC } from "react";
+import React, { FC, SyntheticEvent } from "react";
 import "./Card.css"
+import { CompanySearch } from "../../company";
+import AddPortfolio from "../Portfolio/AddPortfolio/AddPortfolio";
 
 interface Props {
-  companyName:string;
-  ticker:string;
-  price:number;
+  id:string;
+  searchResult:CompanySearch;
+  onPortfolioCreate:(e:SyntheticEvent)=>void
 };
 
-const Card:FC <Props>= ({companyName,ticker,price}:Props) => {
+const Card:FC <Props>= ({id,searchResult,onPortfolioCreate}:Props) => {
   return (
     <div className="card">
-      <h1>{ticker}</h1>
+      <h1>{searchResult.symbol}</h1>
       <div className="detail">
-        <h2>{companyName}</h2>
-        <p>${price}</p>
+        <h2>{searchResult.name}</h2>
+        <p>$ {searchResult.currency}</p>
       </div>
-      <p className="info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, enim!</p>
+      <p className="info">{searchResult.stockExchange}-{searchResult.exchangeShortName}</p>
+      <AddPortfolio onPortfolioCreate={onPortfolioCreate} symbol={searchResult.symbol}/>
     </div>
   );
 };

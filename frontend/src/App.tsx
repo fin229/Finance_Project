@@ -8,13 +8,18 @@ import { searchCompanies } from './api';
 function App() {
   const [search,setSearch]=useState<string>("");
   const [searchResult,setSearchResult]=useState<CompanySearch[]>([]);
-  const [serverError,setServerError]=useState<string>("");
+  const [serverError,setServerError]=useState<string|null>(null);
 
   const handleChange=(e:ChangeEvent<HTMLInputElement>)=>{
       setSearch(e.target.value);
       console.log(e);
   }
   
+  const onPortfolioCreate=(e:SyntheticEvent)=>{
+    e.preventDefault();
+    console.log(e);
+  }
+
   const onClick= async (e:SyntheticEvent)=>{
     console.log(e)
     const result=await searchCompanies(search);
@@ -31,7 +36,7 @@ function App() {
     <div className="App">
       <Search onClick={onClick} search={search} handleChange={handleChange}/>
       {serverError && <h1>{serverError}</h1>}
-      <CardList/>
+      <CardList searchResults={searchResult} onPortfolioCreate={onPortfolioCreate}/>
     </div>
   );
 }
