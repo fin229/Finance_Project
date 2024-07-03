@@ -2,18 +2,19 @@ import React, { ChangeEvent, FC, SyntheticEvent } from "react";
 import "./Search.css"
 
 interface Props {
-  onClick:(e:SyntheticEvent)=>void;
+  onSearchSubmit:(e:SyntheticEvent)=>void;
   search:string|undefined;
-  handleChange:(e:ChangeEvent<HTMLInputElement>)=>void
+  handleSearchChange:(e:ChangeEvent<HTMLInputElement>)=>void
 };
 
-const Search:FC<Props> = ({onClick,search,handleChange}:Props) => {
+const Search:FC<Props> = ({onSearchSubmit,search,handleSearchChange}:Props) => {
    
   return (
-   <div>
-    <input value={search} onChange={(e)=>handleChange(e)}></input>
-    <button onClick={(e)=>onClick(e)}></button>
-   </div>
+   <>
+   <form onSubmit={onSearchSubmit}>
+    <input value={search} onChange={(e)=>handleSearchChange(e)}></input>
+   </form>
+   </>
   );
 };
 
